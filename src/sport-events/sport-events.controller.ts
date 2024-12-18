@@ -1,10 +1,11 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { getCurrentSportEvents } from './sport-events.service';
+import { SportEvents } from './sport-events.model';
 
-export const getClientState = async (
+export const getSportEventsState = async (
   req: IncomingMessage,
   res: ServerResponse
-) => {
+): Promise<void> => {
   const sportEvents = await getCurrentSportEvents();
 
   res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -13,6 +14,6 @@ export const getClientState = async (
 
 export const sportEventsRoutes = {
   '/client/state': {
-    GET: getClientState,
+    GET: getSportEventsState,
   },
 };
