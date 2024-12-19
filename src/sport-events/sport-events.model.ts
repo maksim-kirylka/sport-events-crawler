@@ -23,7 +23,7 @@ export type Competitor = {
   name: string;
 };
 
-export type OutgoingSportEvent = {
+export type SportEvent = {
   id: string;
   status: SportEventStatus;
   scores: { [key in ScoreType]: Score };
@@ -34,5 +34,5 @@ export type OutgoingSportEvent = {
 };
 
 export type SportEvents = {
-  [id: string]: OutgoingSportEvent;
+  [id: string]: SportEvent;
 };

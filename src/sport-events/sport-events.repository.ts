@@ -1,6 +1,6 @@
 import { SportEvents } from './sport-events.model';
 
-interface ISportEventsStateRepository {
+export interface ISportEventsStateRepository {
   getSportEvents(): SportEvents;
 
   setSportEvents(sportEvents: SportEvents): void;
