@@ -1,5 +1,7 @@
 # Real-time Crawlers - Interview Task
 
+<img width="1728" alt="Screenshot 2024-12-19 at 22 55 27" src="https://github.com/user-attachments/assets/6f1549ac-e4e8-4e53-b498-52ca4a47c4db" />
+
 ## Requirements
 * docker `>=23.0.5`
 * docker-compose `>=2.24.6`
