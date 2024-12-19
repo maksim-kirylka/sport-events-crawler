@@ -6,6 +6,7 @@ const applicationRoutes = {
 };
 
 // Running a simple Node.js server to simplify things
+// In production use a framework (Nest.js, express etc.)
 export const startServer = (
   onServerStart?: () => Promise<void>,
   onServerClose?: () => Promise<void>
