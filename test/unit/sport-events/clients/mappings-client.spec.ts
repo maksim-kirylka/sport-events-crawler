@@ -1,8 +1,9 @@
 import { afterEach, beforeEach, describe, it, expect, vi } from 'vitest';
 import { getSportEventsMappings } from '../../../../src/sport-events/clients/mappings-client';
+import { buildUrl } from '../../../../src/sport-events/clients/simulation-api';
 
 describe('getSportEventsMappings client', () => {
-  const url = 'https://api.example.com/api/mappings';
+  const url = buildUrl('/mappings');
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -22,7 +23,7 @@ describe('getSportEventsMappings client', () => {
       json: async () => ({ mappings: encodedMappings }),
     } as Response);
 
-    const response = await getSportEventsMappings(url);
+    const response = await getSportEventsMappings();
 
     expect(response).toBe(encodedMappings);
     expect(global.fetch).toHaveBeenCalledTimes(1);
@@ -33,7 +34,7 @@ describe('getSportEventsMappings client', () => {
     const error = new Error('Internal Server Error');
     vi.mocked(global.fetch).mockRejectedValueOnce(error);
 
-    await expect(() => getSportEventsMappings(url)).rejects.toThrow(error);
+    await expect(() => getSportEventsMappings()).rejects.toThrow(error);
     expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(global.fetch).toHaveBeenCalledWith(url);
   });

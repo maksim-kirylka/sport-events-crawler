@@ -1,8 +1,9 @@
 import { afterEach, beforeEach, describe, it, expect, vi } from 'vitest';
 import { getCurrentSportEventsState } from '../../../../src/sport-events/clients/raw-state-client';
+import { buildUrl } from '../../../../src/sport-events/clients/simulation-api';
 
 describe('getCurrentSportEventsState client', () => {
-  const url = 'https://api.example.com/api/state';
+  const url = buildUrl('/state');
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -22,7 +23,7 @@ describe('getCurrentSportEventsState client', () => {
       json: async () => ({ odds: encoded }),
     } as Response);
 
-    const response = await getCurrentSportEventsState(url);
+    const response = await getCurrentSportEventsState();
 
     expect(response).toBe(encoded);
     expect(global.fetch).toHaveBeenCalledTimes(1);
@@ -33,7 +34,7 @@ describe('getCurrentSportEventsState client', () => {
     const error = new Error('Internal Server Error');
     vi.mocked(global.fetch).mockRejectedValueOnce(error);
 
-    await expect(() => getCurrentSportEventsState(url)).rejects.toThrow(error);
+    await expect(() => getCurrentSportEventsState()).rejects.toThrow(error);
     expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(global.fetch).toHaveBeenCalledWith(url);
   });

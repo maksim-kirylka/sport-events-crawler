@@ -6,7 +6,10 @@ const applicationRoutes = {
 };
 
 // Running a simple Node.js server to simplify things
-export const startServer = (): http.Server => {
+export const startServer = (
+  onServerStart?: () => Promise<void>,
+  onServerClose?: () => Promise<void>
+): http.Server => {
   const server = http.createServer(
     async (req: IncomingMessage, res: ServerResponse) => {
       console.log(
@@ -31,6 +34,13 @@ export const startServer = (): http.Server => {
   const port = process.env.CRAWLER_APPLICATION_PORT || 8080;
   server.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
+
+    onServerStart?.();
+  });
+
+  server.on('close', () => {
+    console.log('Server is closing. Performing cleanup...');
+    onServerClose?.();
   });
 
   return server;
