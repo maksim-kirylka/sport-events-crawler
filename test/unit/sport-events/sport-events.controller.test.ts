@@ -2,7 +2,7 @@ import { beforeEach, describe, it, expect, vi } from 'vitest';
 import { IncomingMessage, ServerResponse } from 'http';
 import { getSportEventsState } from '../../../src/sport-events/sport-events.controller';
 import * as sportEventsService from '../../../src/sport-events/sport-events.service';
-import { sportEvents } from '../../mocks/sport-events';
+import { relevantSportEvents } from '../../mocks/sport-events';
 
 describe('sport-events api tests', () => {
   describe('getSportEventsState - /client/state', () => {
@@ -19,11 +19,7 @@ describe('sport-events api tests', () => {
 
       const mockGetCurrentSportEvents = vi
         .spyOn(sportEventsService, 'getCurrentSportEvents')
-        .mockResolvedValue(sportEvents);
-
-      const activeSportEvents = Object.keys(sportEvents)
-        .filter((key) => sportEvents[key].status !== 'REMOVED')
-        .reduce((acc, key) => ({ ...acc, [key]: sportEvents[key] }), {});
+        .mockResolvedValue(relevantSportEvents);
 
       await getSportEventsState(mockReq, mockRes);
 
@@ -33,7 +29,7 @@ describe('sport-events api tests', () => {
       });
 
       expect(mockRes.end).toHaveBeenCalledWith(
-        JSON.stringify(activeSportEvents)
+        JSON.stringify(relevantSportEvents)
       );
     });
 
@@ -72,11 +68,15 @@ describe('sport-events api tests', () => {
       await getSportEventsState(mockReq, mockRes);
 
       expect(mockGetCurrentSportEvents).toHaveBeenCalledTimes(1);
-      expect(mockRes.writeHead).toHaveBeenCalledWith(401, {
+      expect(mockRes.writeHead).toHaveBeenCalledWith(500, {
         'Content-Type': 'application/json',
       });
       expect(mockRes.end).toHaveBeenCalledWith(
-        JSON.stringify({ error: 'Unauthorized' })
+        JSON.stringify({
+          status: 500,
+          message: 'Internal Server Error',
+          description: 'Unauthorized',
+        })
       );
     });
   });

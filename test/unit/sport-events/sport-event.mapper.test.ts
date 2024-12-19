@@ -43,7 +43,7 @@ describe('Sport events mappers', () => {
       expect(decoded).toEqual([]);
     });
 
-    it.only('should decode sport events state correctly', () => {
+    it('should decode sport events state correctly', () => {
       const odds =
         '5405c790-6c8a-41f6-9080-01799a11549a,5c1a17cf-1676-42da-8e4a-30191c6bc5f6,320b327f-b5fb-4baa-9fb2-3cd962e50d16,1734554967143,1654eaa2-4df3-4353-a971-8869797afcca,a1a4283d-b257-41a2-be16-094705bc377c,c9d1092b-8f2e-4fe4-8b80-b996bbe35730,69c59243-68dc-4663-8b62-c228f27812c0@8:8|ad07a6c0-5dc3-4d9d-8407-ffe653fdf4f5@4:5|2850942c-5553-4f48-af8f-10274cfa0077@4:3\nf5b75b6d-7be3-4399-9cc1-27c6d250683f,5c1a17cf-1676-42da-8e4a-30191c6bc5f6,320b327f-b5fb-4baa-9fb2-3cd962e50d16,1734554957862,57401195-28c2-4b6b-b440-92b4f5e6054c,f65aee22-588f-43f8-b836-af53a4324cb1,c9d1092b-8f2e-4fe4-8b80-b996bbe35730,69c59243-68dc-4663-8b62-c228f27812c0@10:9|ad07a6c0-5dc3-4d9d-8407-ffe653fdf4f5@8:5|2850942c-5553-4f48-af8f-10274cfa0077@2:4';
       const decoded = decodeSportEventsState(odds, decodedMappings);

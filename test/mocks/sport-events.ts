@@ -1,6 +1,6 @@
 import { SportEvents } from '../../src/sport-events/sport-events.model';
 
-export const sportEvents: SportEvents = {
+export const relevantSportEvents: SportEvents = {
   '3eccf850-571f-4e18-8cb3-2c9e3afade7b': {
     id: '3eccf850-571f-4e18-8cb3-2c9e3afade7b',
     status: 'LIVE',
@@ -49,6 +49,10 @@ export const sportEvents: SportEvents = {
     },
     competition: 'UEFA Champions League',
   },
+};
+
+export const sportEvents: SportEvents = {
+  ...relevantSportEvents,
   '5eccf850-571f-4e18-8cb3-2c9e3afade7c': {
     id: '5eccf850-571f-4e18-8cb3-2c9e3afade7c',
     status: 'REMOVED',

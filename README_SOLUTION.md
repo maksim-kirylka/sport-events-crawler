@@ -27,6 +27,6 @@
 
 ## Running server
 
-1. `npm i`
-2. `docker-compose build`
-3. `docker-compose up` (or `docker-compose watch` for development)
+1. Run `npm i`
+2. Run `docker-compose build`
+3. Run `docker-compose up` (or `docker-compose watch` for development)
