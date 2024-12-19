@@ -23,12 +23,24 @@ describe('SportEventsStateRepository', () => {
   it('should update the sport events state with setSportEvents', () => {
     repository.setSportEvents(sportEvents);
 
-    const updatedState = repository.getSportEvents();
+    const events = repository.getSportEvents();
 
-    expect(updatedState).toEqual(sportEvents);
+    expect(events).toEqual(sportEvents);
 
     repository.setSportEvents({});
+    const newEvents = repository.getSportEvents();
 
-    expect(updatedState).toEqual({});
+    expect(newEvents).toEqual({});
+  });
+
+  it('should return all the sport events besides ones with status REMOVED', () => {
+    repository.setSportEvents(sportEvents);
+
+    const activeSportEvents = repository.getRelevantSportEvents();
+    const expected = Object.keys(sportEvents)
+      .filter((key) => sportEvents[key].status !== 'REMOVED')
+      .reduce((acc, key) => ({ ...acc, [key]: sportEvents[key] }), {});
+
+    expect(activeSportEvents).toEqual(expected);
   });
 });
